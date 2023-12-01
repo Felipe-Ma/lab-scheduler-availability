@@ -60,7 +60,7 @@ def pinged_availability(last_pinged_list ):
     logging.info("Checking availability of each server")
 
     for last_pinged in last_pinged_list:
-        get_availability(last_pinged)
+        print(get_availability(last_pinged))
 
 
 if __name__ == '__main__':
