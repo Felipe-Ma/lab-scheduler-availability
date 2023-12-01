@@ -36,6 +36,7 @@ class Config:
         print("Worksheet: " + str(self.worksheets))
 
 
+# Get Current Directory
 def get_current_directory():
     current_directory = "Unknown"
     try:
@@ -45,6 +46,7 @@ def get_current_directory():
     return current_directory
 
 
+# Get Path of Config File
 def get_config_path(main_directory):
     config_path = "Unknown"
     try:
@@ -70,6 +72,7 @@ def get_credential_path(config_path):
     return credentials_path
 
 
+# Get Spreadsheet Name
 def get_spreadsheet(config_path):
     spreadsheet = "Unknown"
     try:
@@ -80,6 +83,8 @@ def get_spreadsheet(config_path):
         print(str(e) + "Error getting spreadsheet name!")
     return spreadsheet
 
+
+# Get List of Worksheets
 def get_worksheets(config_path):
     worksheets = "Unknown"
     try:
@@ -90,6 +95,7 @@ def get_worksheets(config_path):
         print(str(e) + "Error getting worksheet names!")
     return worksheets
 
+# Get Current Time
 def get_time():
     current_datetime = datetime.now()
     print(current_datetime.strftime("%Y-%m-%d %H:%M:%S"))
