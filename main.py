@@ -10,11 +10,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
 def authorize():
     logging.info("Authorizing Google Sheets API")
     gc = pygsheets.authorize(service_file="testing.json")
-
     return gc
-
-    #logging.info("Opening spreadsheet 1")
-    #spreadsheet = gc.open("Server Dashboard")
 
 
 def open_spreadsheet(gc, config):
@@ -22,6 +18,7 @@ def open_spreadsheet(gc, config):
     spreadsheet = gc.open(config.spreadsheet)
     logging.info("Spreadsheet opened")
     return spreadsheet
+
 
 def retrieve_config_values(config):
     #config()
@@ -54,9 +51,16 @@ def batch_read(spreadsheet, config):
         logging.info("Fetching all B11 values from " + worksheet.title)
         last_pinged_list.append(worksheet.get_value('B11'))
         logging.info("Fetched all B11 values from " + worksheet.title)
-    print(last_pinged_list)
+
+    logging.info("All B11 values fetched")
+    return last_pinged_list
 
 
+def pinged_availability(last_pinged_list ):
+    logging.info("Checking availability of each server")
+
+    for last_pinged in last_pinged_list:
+        get_availability(last_pinged)
 
 
 if __name__ == '__main__':
@@ -69,7 +73,9 @@ if __name__ == '__main__':
 
     spreadsheet = open_spreadsheet(gc, config)
 
-    worksheets = batch_read(spreadsheet, config)
+    last_pinged_list = batch_read(spreadsheet, config)
+    #print(last_pinged_list)
+    availability_list = pinged_availability(last_pinged_list)
 
 
     #batch_read(spreadsheet, config)

@@ -98,8 +98,29 @@ def get_worksheets(config_path):
         print(str(e) + "Error getting worksheet names!")
     return worksheets
 
+
 # Get Current Time
 def get_time():
     current_datetime = datetime.now()
-    print(current_datetime.strftime("%Y-%m-%d %H:%M:%S"))
-    return current_datetime.strftime("%Y-%m-%d %H:%M:%S")
+    return current_datetime
+
+
+# Get Last Ping Time
+def get_availability(pinged_time):
+    current_time = get_time()
+
+    # Convert current_time to datetime
+    try:
+        pinged_time = datetime.strptime(pinged_time, '%Y-%m-%d %H:%M:%S')
+    except Exception as e:
+        print(str(e) + "Error converting current_time to datetime")
+        return "Offline"
+
+    # If difference between current_time and pinged_time is greater than 5 minutes, return "Offline"
+    if (current_time - pinged_time).total_seconds() > 300:
+        return "Offline"
+    else:
+        return "Online"
+
+
+
