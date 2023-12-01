@@ -1,0 +1,9 @@
+credentialsName: "testing.json"
+
+spreadsheet: Server Dashboard
+
+worksheets:
+  - Jedi 1
+  - Jedi 2
+  - Jedi 3
+  - Jedi 4
