@@ -27,6 +27,9 @@ class Config:
     def set_worksheets(self, worksheets):
         self.worksheets = worksheets
 
+    def get_worksheets(self):
+        return self.worksheets
+
     # Print all config values
     def __call__(self):
         print("Current Directory: " + str(self.current_directory))

@@ -17,6 +17,12 @@ def authorize():
     #spreadsheet = gc.open("Server Dashboard")
 
 
+def open_spreadsheet(gc, config):
+    logging.info("Opening spreadsheet")
+    spreadsheet = gc.open(config.spreadsheet)
+    logging.info("Spreadsheet opened")
+    return spreadsheet
+
 def retrieve_config_values(config):
     #config()
     logging.info("Retrieving config values")
@@ -29,6 +35,30 @@ def retrieve_config_values(config):
     #config()
 
 
+def batch_read(spreadsheet, config):
+    logging.info("Batch reading")
+    worksheets = config.get_worksheets()
+    google_worksheets = []
+
+    logging.info("Creating list of worksheets: ")
+    for worksheet in worksheets:
+        google_worksheets.append(spreadsheet.worksheet_by_title(worksheet))
+
+    logging.info("List of worksheets created")
+
+    # Fetch all B11 values from each worksheet
+    logging.info("Fetching all B11 values from each worksheet")
+
+    last_pinged_list = []
+    for worksheet in google_worksheets:
+        logging.info("Fetching all B11 values from " + worksheet.title)
+        last_pinged_list.append(worksheet.get_value('B11'))
+        logging.info("Fetched all B11 values from " + worksheet.title)
+    print(last_pinged_list)
+
+
+
+
 if __name__ == '__main__':
     start_time = time.time()
 
@@ -36,5 +66,12 @@ if __name__ == '__main__':
     retrieve_config_values(config)
 
     gc = authorize()
+
+    spreadsheet = open_spreadsheet(gc, config)
+
+    worksheets = batch_read(spreadsheet, config)
+
+
+    #batch_read(spreadsheet, config)
 
     print("--- %s seconds ---" % (time.time() - start_time))
