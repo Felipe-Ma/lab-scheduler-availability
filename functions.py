@@ -122,6 +122,7 @@ def get_availability(pinged_time):
     else:
         return "Online"
 
+
 # Zip two lists together
 def zip_lists(list1, list2):
     combined_list = [(a, b) for a, b in zip(list1, list2)]

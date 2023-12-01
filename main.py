@@ -46,14 +46,19 @@ def batch_read(spreadsheet, config):
     # Fetch all B11 values from each worksheet
     logging.info("Fetching all B11 values from each worksheet")
 
-    last_pinged_list = []
+    availability_list = []
+    worksheet_titles = []
+
     for worksheet in google_worksheets:
         logging.info("Fetching all B11 values from " + worksheet.title)
-        last_pinged_list.append(worksheet.get_value('B11'))
+        last_pinged_value = worksheet.get_value('B11')
+        worksheet_titles.append(worksheet.title)
+        availability_list.append(get_availability(last_pinged_value))
         logging.info("Fetched all B11 values from " + worksheet.title)
 
     logging.info("All B11 values fetched")
-    return last_pinged_list
+
+    return worksheet_titles, availability_list
 
 
 def pinged_availability(last_pinged_list ):
@@ -73,11 +78,11 @@ if __name__ == '__main__':
 
     spreadsheet = open_spreadsheet(gc, config)
 
-    last_pinged_list = batch_read(spreadsheet, config)
-    #print(last_pinged_list)
-    availability_list = pinged_availability(last_pinged_list)
+    worksheet_titles, availability_list = batch_read(spreadsheet, config)
 
+    # Zip the two lists together
+    servers_availability = zip_lists(worksheet_titles, availability_list)
+    print(servers_availability)
 
-    #batch_read(spreadsheet, config)
 
     print("--- %s seconds ---" % (time.time() - start_time))
