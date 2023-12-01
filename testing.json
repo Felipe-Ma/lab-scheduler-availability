@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "server-dashboard-376008",
+  "private_key_id": "107096d26d6944778e5c1a8c29184bfb8285392a",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCqlQWY47090ZPn\nYrIYeTqDrmIQ0tdX/fZJv5NH4RFYH8+btntBP9eVC6wUb520CJFvcR7bPigE+3wU\niDpT7wq1VpKKNPiKMzpcl6cJ9PsG3sxE3mFV1SxlURAU3PBZscVKVuUgsMM19/b+\nG8QbwI92hRGMRsg1ljn/pZfcL1iiKLwnm1S5Z5nFhAIABkojHlM5NuDdINNwVLzO\n47k64ZZbwpF/8DjOAVwon4Xvw4EYOzFTm/+vfgI2g8vKrV9KEm7/iYZRkye/q8A1\nSbgskinTbaFLB5KauwTgi9N/5/IJDcOi0Crfn3lHVFOc281nBh4QD1iDXTjltnv5\nDELksIRxAgMBAAECggEACohKAK8rG5qJndNPuMgfb0sAnhZOmo3BO7t67gi9B+pq\n6KvjP1ugRYEjfl2H6LpQtIdRBut3EBuxBRmGNHGBgUHXqXXs1KemFlp8w1Yfe8Sc\n6zGp4+FWLOlM62Ta6EbcLiNgYVzYqMfnNbhkKuyATyqXM0iZiwl8CkdgsYUw3U45\njIFocEc35azmfjJ8K1mp4nAjYC5jlJr7FRCsNis2m433zdkOcSrZSsH8lHptJfnT\nyfEMSl4ojq/iWrcftKf0w0gCRHNzstj+8igam9yhVRFfUaX5C5dqDvzWBxOsAyNF\n9WQXLdCzKHjcWHXO3RYSjfQLc3Z+V61s6Dyo5Z210wKBgQDuT3cDMDBxCkKa2YXn\nIkoQusBa1PjpNLD9Non2sx0bxcaaRDF2LtoCgnjfHhHoA9wVJVnq2yap2IEQGDoH\nBxU4iOWon8yqaULLL+oZLDzFnLRR3HEWe3D0xAAfl0e7VbNqEFe12QEUZzWG+5J+\n+D8aY5xgqYusdmegLeNgY8TvewKBgQC3PonMYkw/Klxf5oLEgRvMDmuG/gRP5kKg\nHjvhqqGKEZkv5f+272sDolZlHwCrr39r6J07HB441vHOq45dHYa5L0KwReU6CWec\nKAH5B2dw8vRf+W9gB1iiy+v1dM61HX4myr3CTzjzdn+7bvMenIWO6tJYdJEwb/ST\nH718F6xCAwKBgBk2wyrNMHLlWQK1PRulXxzCBZQWsHdMIeXInXRCozPLCyZLTMhq\nUJqvX0aMEezwa5q5JvhYU5Do3U7soUcZEr+2jEX5Elh9ZpnE6gnbylpGKDX5EuYE\nDYF4M2MkSGyjtqXkMMOGwDx+ZwVvHKLedR6/p0364lJO/MvPzxzlsXJ9AoGAQhQy\nOtrDpg+PiiGkzFnGfVpB2kclpO5i3jyo2WLfp9taw1QMV5qUm5Xh08tPQZoit/YF\nJPipyVNxlVZ2Gwv3tjXdtZUu6TPVAhHHTFcoLSnfh/B6AkYD54jjyPrbQ6KkCDca\nIMTSw7DatOt4jnRhET2Kps06Qh5NMvTCLsqWmqMCgYEAxFmhDwCgbD/v9gRPu1+a\nwe6vBtQewNGcZOuQrvlhf01keHv63al9bbN05uHWa4PcZ+WvQz+3o28D5ugHR8mv\nzqGnfrz7ZoOhd0Rqdh//p/TmJGjsFnAKMeNadrMjRGbBCBluEUwZn5JTImpKfpJo\nkRr5Cjc6t+VAx1R0ysNW9Mg=\n-----END PRIVATE KEY-----\n",
+  "client_email": "sacramentoservers2@server-dashboard-376008.iam.gserviceaccount.com",
+  "client_id": "104794249946338312826",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/sacramentoservers2%40server-dashboard-376008.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
