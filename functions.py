@@ -5,11 +5,12 @@ import yaml
 
 class Config:
     def __init__(self, current_directory=None, config_path=None, credential_path=None,
-                 spreadsheet=None, worksheets=None):
+                 spreadsheet=None, availability_spreadsheet = None, worksheets=None):
         self.current_directory = current_directory
         self.config_path = config_path
         self.credential_path = credential_path
         self.spreadsheet = spreadsheet
+        self.availability_spreadsheet = availability_spreadsheet
         self.worksheets = worksheets
 
     def set_current_directory(self, current_directory):
@@ -23,6 +24,9 @@ class Config:
 
     def set_spreadsheet(self, spreadsheet):
         self.spreadsheet = spreadsheet
+
+    def set_availability_spreadsheet(self, availability_spreadsheet):
+        self.availability_spreadsheet = availability_spreadsheet
 
     def set_worksheets(self, worksheets):
         self.worksheets = worksheets
@@ -84,6 +88,18 @@ def get_spreadsheet(config_path):
             spreadsheet = config['spreadsheet']
     except Exception as e:
         print(str(e) + "Error getting spreadsheet name!")
+    return spreadsheet
+
+
+# Get Availability Sheet Name
+def get_availability_spreadsheet(config_path):
+    spreadsheet = "Unknown"
+    try:
+        with open(config_path, 'r') as config_file:
+            config = yaml.safe_load(config_file)
+            spreadsheet = config['availability_spreadsheet']
+    except Exception as e:
+        print(str(e) + "Error getting availability spreadsheet name!")
     return spreadsheet
 
 

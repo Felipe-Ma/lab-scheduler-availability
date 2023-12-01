@@ -1,5 +1,7 @@
 credentialsName: "testing.json"
 
+availability_spreadsheet: Availability
+
 spreadsheet: Server Dashboard
 
 worksheets:
