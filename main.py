@@ -20,9 +20,8 @@ def open_spreadsheet(gc, config):
     return spreadsheet
 
 
-def open_availability_worksheet(gc, config):
+def open_availability_worksheet(spreadsheet, config):
     logging.info("Opening availability worksheet")
-    spreadsheet = gc.open(config.spreadsheet)
     worksheet = spreadsheet.worksheet_by_title(config.availability_spreadsheet)
     logging.info("Availability spreadsheet worksheet")
     return worksheet
@@ -68,8 +67,12 @@ def batch_read(spreadsheet, config):
 
     return worksheet_titles, availability_list
 
-def intialize_availability_sheet():
+
+def initialize_availability_sheet():
     logging.info("Initializing availability sheet")
+    # Batch write to availability sheet
+    # Create a list of worksheet titles
+    
 
 def batch_write(spreadsheet, config, servers_availability):
     logging.info("Batch writing")
@@ -83,7 +86,6 @@ def batch_write(spreadsheet, config, servers_availability):
     logging.info("List of worksheets created")
 
 
-
 def pinged_availability(last_pinged_list ):
     logging.info("Checking availability of each server")
 
@@ -92,16 +94,24 @@ def pinged_availability(last_pinged_list ):
 
 
 if __name__ == '__main__':
+    # Start timer
     start_time = time.time()
 
+    # Initialize config
     config = Config()
     retrieve_config_values(config)
 
+    # Authorize Google Sheets API
     gc = authorize()
 
-    availability_worksheet = open_availability_worksheet(gc, config)
 
+
+    # Open spreadsheet
     spreadsheet = open_spreadsheet(gc, config)
+
+    # Open availability worksheet
+    availability_worksheet = open_availability_worksheet(spreadsheet, config)
+
 
     worksheet_titles, availability_list = batch_read(spreadsheet, config)
 
