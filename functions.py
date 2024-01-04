@@ -1,6 +1,7 @@
 from datetime import datetime
 import os
 import yaml
+import pygsheets
 
 
 class Config:
@@ -145,5 +146,47 @@ def zip_lists(list1, list2):
     return combined_list
 
 
+# Get Hyperlink
+def get_hyperlink(server_name):
+    hyperlink = "Unknown"
+    # remove spaces from server name
+    server_name_plus = server_name.replace(" ", "+")
+    try:
+        hyperlink = '=HYPERLINK("https://npsg-wiki.elements.local/display/~pashmore/' + server_name_plus + '", "' + server_name + '")'
+    except Exception as e:
+        print(str(e) + "Error getting hyperlink!")
+    return hyperlink
+
+# Get Hyperlink
+def set_hyperlink(server_name):
+    hyperlink = "Unknown"
+    # remove spaces from server name
+    server_name_plus = server_name.replace(" ", "+")
+    try:
+        hyperlink = '=HYPERLINK("https://npsg-wiki.elements.local/display/~pashmore/' + server_name_plus + '", "' + server_name + '")'
+    except Exception as e:
+        print(str(e) + "Error getting hyperlink!")
+    return hyperlink
+
+
+def format_cell(cell, server, status):
+    # Set Hyperlink
+    cell.value = get_hyperlink(server)
+
+    # Set Text Color to White
+    cell.set_text_format('foregroundColor', (1, 1, 1, 0))
+
+    #cell.set_text_format('fontSize', 12)
+    cell.set_horizontal_alignment(pygsheets.custom_types.HorizontalAlignment.CENTER)
+
+    # Set Background Color
+    if status == "Online":
+        cell.color = (0, 0.4980392156862745, 0)
+    elif status == "Offline":
+        cell.color = (0.9176470588235294, 0.2627450980392157, 0.20784313725490197)
+    else:
+        cell.color = (1, 1, 0)
+
+    return cell
 
 

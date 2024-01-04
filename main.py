@@ -87,13 +87,8 @@ def initialize_availability_sheet(availability_worksheet, servers_availability):
     for index, (server, status) in enumerate(servers_availability, start=1):
         #print(index, server, status)
         temp_cell = pygsheets.Cell(f"A{index}")
-        temp_cell.value = server
-        if status == "Online":
-            temp_cell.color = (0, 1, 0) # Green
-        elif status == "Offline":
-            temp_cell.color = (1, 0, 0) # Red
-        else:
-            temp_cell.color = (1, 1, 0) # Yellow
+        format_cell(temp_cell, server, status)
+
         cells.append(temp_cell)
     availability_worksheet.update_cells(cells)
 
@@ -106,7 +101,6 @@ def batch_write(spreadsheet, config, servers_availability):
     logging.info("Batch writing")
     worksheets = config.get_worksheets()
     google_worksheets = []
-
     logging.info("Creating list of worksheets: ")
     for worksheet in worksheets:
         google_worksheets.append(spreadsheet.worksheet_by_title(worksheet))
