@@ -23,6 +23,8 @@ def open_spreadsheet(gc, config):
 def open_availability_worksheet(spreadsheet, config):
     logging.info("Opening availability worksheet")
     worksheet = spreadsheet.worksheet_by_title(config.availability_spreadsheet)
+    print(worksheet)
+    #worksheet.update_value('A1', "Server Name")
     logging.info("Availability spreadsheet worksheet")
     return worksheet
 
@@ -68,9 +70,35 @@ def batch_read(spreadsheet, config):
     return worksheet_titles, availability_list
 
 
-def initialize_availability_sheet():
+def initialize_availability_sheet(availability_worksheet, servers_availability):
     logging.info("Initializing availability sheet")
     # Batch write to availability sheet
+    logging.info("Batch writing to availability sheet")
+    # update cell with first value of the tuple
+    # Extract first element from each tuple
+    server_names = []
+    #server_names.append([1])
+    #server_names.append([2])
+    for x in servers_availability:
+        server_names.append([x[0]])
+    #server_names = [x[0] for x in servers_availability]
+
+    cells = []
+    for index, (server, status) in enumerate(servers_availability, start=1):
+        #print(index, server, status)
+        temp_cell = pygsheets.Cell(f"A{index}")
+        temp_cell.value = server
+        if status == "Online":
+            temp_cell.color = (0, 1, 0) # Green
+        elif status == "Offline":
+            temp_cell.color = (1, 0, 0) # Red
+        else:
+            temp_cell.color = (1, 1, 0) # Yellow
+        cells.append(temp_cell)
+    availability_worksheet.update_cells(cells)
+
+
+    logging.info("Availability sheet initialized")
     # Create a list of worksheet titles
     
 
@@ -104,8 +132,6 @@ if __name__ == '__main__':
     # Authorize Google Sheets API
     gc = authorize()
 
-
-
     # Open spreadsheet
     spreadsheet = open_spreadsheet(gc, config)
 
@@ -115,11 +141,14 @@ if __name__ == '__main__':
 
     worksheet_titles, availability_list = batch_read(spreadsheet, config)
 
+    #exit()
+
     # Zip the two lists together
     servers_availability = zip_lists(worksheet_titles, availability_list)
     print(servers_availability)
 
-
+    # Initialize availability sheet
+    initialize_availability_sheet(availability_worksheet, servers_availability)
 
 
     print("--- %s seconds ---" % (time.time() - start_time))
