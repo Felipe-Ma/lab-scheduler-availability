@@ -135,7 +135,6 @@ if __name__ == '__main__':
 
     worksheet_titles, availability_list = batch_read(spreadsheet, config)
 
-    #exit()
 
     # Zip the two lists together
     servers_availability = zip_lists(worksheet_titles, availability_list)
