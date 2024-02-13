@@ -16,20 +16,17 @@ def authorize():
 def open_spreadsheet(gc, config):
     logging.info("Opening spreadsheet")
     spreadsheet = gc.open(config.spreadsheet)
-    logging.info("Spreadsheet opened")
+    logging.info("***")
     return spreadsheet
 
 
 def open_availability_worksheet(spreadsheet, config):
     logging.info("Opening availability worksheet")
     worksheet = spreadsheet.worksheet_by_title(config.availability_spreadsheet)
-    print(worksheet)
-    #worksheet.update_value('A1', "Server Name")
-    logging.info("Availability spreadsheet worksheet")
+    logging.info("***")
     return worksheet
 
 def retrieve_config_values(config):
-    #config()
     logging.info("Retrieving config values")
     config.set_current_directory(get_current_directory())
     config.set_config_path(get_config_path(config.current_directory))
@@ -37,20 +34,21 @@ def retrieve_config_values(config):
     config.set_spreadsheet(get_spreadsheet(config.config_path))
     config.set_availability_spreadsheet(get_availability_spreadsheet(config.config_path))
     config.set_worksheets(get_worksheets(config.config_path))
-    logging.info("Config values retrieved")
-    #config()
+    logging.info("***")
 
 
 def batch_read(spreadsheet, config):
-    logging.info("Batch reading")
+    #logging.info("Batch reading")
+    logging.info("Creating list of worksheets: ")
+    # Creates a list of worksheets based on the config file
     worksheets = config.get_worksheets()
     google_worksheets = []
 
-    logging.info("Creating list of worksheets: ")
+    # Create a list of google worksheets by title
     for worksheet in worksheets:
         google_worksheets.append(spreadsheet.worksheet_by_title(worksheet))
-
-    logging.info("List of worksheets created")
+    logging.info("***")
+    #logging.info("List of worksheets created")
 
     # Fetch all B11 values from each worksheet
     logging.info("Fetching all B11 values from each worksheet")
@@ -60,20 +58,20 @@ def batch_read(spreadsheet, config):
     ip_map = {}
 
     for worksheet in google_worksheets:
-        logging.info("Fetching all B11 values from " + worksheet.title)
-        last_pinged_value = worksheet.get_value('B11')
-        worksheet_titles.append(worksheet.title)
-        availability_list.append(get_availability(last_pinged_value))
+        logging.info("Fetching" + worksheet.title + "B4 Value")
+        #last_pinged_value = worksheet.get_value('B11')
+        #worksheet_titles.append(worksheet.title)
+        #availability_list.append(get_availability(last_pinged_value))
         ip_map[worksheet.title] = worksheet.get_value('B4')
-        logging.info("Fetched all B11 values from " + worksheet.title)
+        #logging.info("Fetched all B11 values from " + worksheet.title)
 
     print(ip_map)
     logging.info("All B11 values fetched")
 
-    return worksheet_titles, availability_list, ip_map
+    return ip_map
 
 
-def initialize_availability_sheet(availability_worksheet, servers_availability, servers_status):
+def initialize_availability_sheet(servers_status):
     logging.info("Initializing availability sheet")
     # Batch write to availability sheet
     logging.info("Batch writing to availability sheet")
@@ -85,7 +83,7 @@ def initialize_availability_sheet(availability_worksheet, servers_availability, 
 
     print("***")
     print(servers_status)
-    print(servers_availability)
+    #print(servers_availability)
     print("***")
     # print index, key and value of servers_status
     for index, (server, status) in enumerate(servers_status.items(), start=1):
@@ -167,18 +165,18 @@ if __name__ == '__main__':
     availability_worksheet = open_availability_worksheet(spreadsheet, config)
 
 
-    worksheet_titles, availability_list, ip_map = batch_read(spreadsheet, config)
+    ip_map = batch_read(spreadsheet, config)
 
 
     # Zip the two lists together
-    servers_availability = zip_lists(worksheet_titles, availability_list)
-    print(servers_availability)
+    #servers_availability = zip_lists(worksheet_titles, availability_list)
+    #print(servers_availability)
 
     # Initialize availability sheet
 
     print(ip_map)
     servers_status = ping_servers(ip_map)
 
-    initialize_availability_sheet(availability_worksheet, servers_availability, servers_status)
+    initialize_availability_sheet(servers_status)
 
     print("--- %s seconds ---" % (time.time() - start_time))
