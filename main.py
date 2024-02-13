@@ -38,7 +38,6 @@ def retrieve_config_values(config):
 
 
 def batch_read(spreadsheet, config):
-    #logging.info("Batch reading")
     logging.info("Creating list of worksheets: ")
     # Creates a list of worksheets based on the config file
     worksheets = config.get_worksheets()
@@ -58,14 +57,14 @@ def batch_read(spreadsheet, config):
     ip_map = {}
 
     for worksheet in google_worksheets:
-        logging.info("Fetching" + worksheet.title + "B4 Value")
+        logging.info("Fetching " + worksheet.title + " B4 Value")
         #last_pinged_value = worksheet.get_value('B11')
         #worksheet_titles.append(worksheet.title)
         #availability_list.append(get_availability(last_pinged_value))
         ip_map[worksheet.title] = worksheet.get_value('B4')
         #logging.info("Fetched all B11 values from " + worksheet.title)
 
-    print(ip_map)
+    #print(ip_map)
     logging.info("All B11 values fetched")
 
     return ip_map
@@ -77,30 +76,18 @@ def initialize_availability_sheet(servers_status):
     logging.info("Batch writing to availability sheet")
     # update cell with first value of the tuple
     # Extract first element from each tuple
-    #for index, (server, status) in enumerate(servers_status, start=1):
-        #print(index)
+
     cells = []
 
-    print("***")
-    print(servers_status)
-    #print(servers_availability)
-    print("***")
+    #print("***")
+    #print(servers_status)
+    #print("***")
     # print index, key and value of servers_status
     for index, (server, status) in enumerate(servers_status.items(), start=1):
         temp_cell = pygsheets.Cell(f"A{index}")
         format_cell(temp_cell, server, status)
         cells.append(temp_cell)
     availability_worksheet.update_cells(cells)
-    """
-    for index, (server, status) in enumerate(servers_availability, start=1):
-        #print(index, server, status)
-        temp_cell = pygsheets.Cell(f"A{index}")
-        format_cell(temp_cell, server, status)
-
-        cells.append(temp_cell)
-    availability_worksheet.update_cells(cells)
-    """
-
 
     logging.info("Availability sheet initialized")
     # Create a list of worksheet titles
@@ -164,17 +151,11 @@ if __name__ == '__main__':
     # Open availability worksheet
     availability_worksheet = open_availability_worksheet(spreadsheet, config)
 
-
+    # Batch read all ip addresses
     ip_map = batch_read(spreadsheet, config)
 
-
-    # Zip the two lists together
-    #servers_availability = zip_lists(worksheet_titles, availability_list)
-    #print(servers_availability)
-
     # Initialize availability sheet
-
-    print(ip_map)
+    #print(ip_map)
     servers_status = ping_servers(ip_map)
 
     initialize_availability_sheet(servers_status)
