@@ -142,22 +142,53 @@ if __name__ == '__main__':
     config = Config()
     retrieve_config_values(config)
 
-    # Authorize Google Sheets API
-    gc = authorize()
+    initial_insertion = False
+    while not initial_insertion:
+        try:
+            # Authorize Google Sheets API
+            gc = authorize()
+            # Open spreadsheet
+            spreadsheet = open_spreadsheet(gc, config)
+            # Open availability worksheet
+            availability_worksheet = open_availability_worksheet(spreadsheet, config)
+            # Batch read all ip addresses
+            ip_map = batch_read(spreadsheet, config)
+            # Ping servers
+            servers_status = ping_servers(ip_map)
+            # Initialize availability sheet
+            initialize_availability_sheet(servers_status)
+            initial_insertion = True
+        except Exception as e:
+            print(e)
+            logging.error("Error inserting initial server information" + str(e))
+            time.sleep(15)
 
-    # Open spreadsheet
-    spreadsheet = open_spreadsheet(gc, config)
+    print("Initial Sheets Update completed in %s seconds" % (time.time() - start_time))
+    logging.info("Going to sleep for 2 minutes")
+    time.sleep(120)
 
-    # Open availability worksheet
-    availability_worksheet = open_availability_worksheet(spreadsheet, config)
+    while True:
+        try:
+            start_time = time.time()
+            # Authorize Google Sheets API
+            gc = authorize()
+            # Open spreadsheet
+            spreadsheet = open_spreadsheet(gc, config)
+            # Open availability worksheet
+            availability_worksheet = open_availability_worksheet(spreadsheet, config)
+            # Batch read all ip addresses
+            ip_map = batch_read(spreadsheet, config)
+            # Ping servers
+            servers_status = ping_servers(ip_map)
+            # Initialize availability sheet
+            initialize_availability_sheet(servers_status)
+            print("Sheets Update completed in %s seconds" % (time.time() - start_time))
+            logging.info("Going to sleep for 2 minutes")
+        except Exception as e:
+            logging.error(e)
+            logging.error("Error inserting initial server information")
+        time.sleep(120)
 
-    # Batch read all ip addresses
-    ip_map = batch_read(spreadsheet, config)
 
-    # Initialize availability sheet
-    #print(ip_map)
-    servers_status = ping_servers(ip_map)
 
-    initialize_availability_sheet(servers_status)
-
-    print("--- %s seconds ---" % (time.time() - start_time))
+    #print("--- %s seconds ---" % (time.time() - start_time))
