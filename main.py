@@ -4,7 +4,11 @@ import logging
 from functions import *
 
 # Log in terminal
-logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
+log_path = os.path.dirname(os.path.realpath(__file__))
+log_path = os.path.join(log_path, "lab-scheduler-availability.log")
+logging.basicConfig(filename=log_path, filemode='w', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+#logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
 
 
 def authorize():
@@ -159,7 +163,8 @@ if __name__ == '__main__':
             initialize_availability_sheet(servers_status)
             initial_insertion = True
         except Exception as e:
-            print(e)
+           # print(e)
+            logging.info(e)
             logging.error("Error inserting initial server information" + str(e))
             time.sleep(15)
 

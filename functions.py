@@ -175,7 +175,7 @@ def format_cell(cell, server, status):
 
     # Set Text Color to White
     cell.set_text_format('foregroundColor', (1, 1, 1, 0))
-
+    cell.set_text_format('fontSize', 13)
     #cell.set_text_format('fontSize', 12)
     cell.set_horizontal_alignment(pygsheets.custom_types.HorizontalAlignment.CENTER)
 

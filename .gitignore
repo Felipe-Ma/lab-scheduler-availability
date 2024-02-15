@@ -9,3 +9,4 @@ server.log
 __pycache__/functions.cpython-311.pyc
 __pycache__/functions.cpython-38.pyc
 __pycache__/pygsheets.cpython-311.pyc
+lab-scheduler-availability.log
