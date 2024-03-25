@@ -1,24 +1,25 @@
-credentialsName: "testing.json"
+# Configuration file for lab-scheduler-availability
 
-availability_spreadsheet: Availability
+# Google Sheets API credentials file
+credentialsName: # credentials.json
 
-spreadsheet: Server Dashboard
+# Name of the Google Sheets spreadsheet with the availability data
+availability_spreadsheet: # Availability
 
+# Name of the Google Sheets WorkBook
+spreadsheet: # Server Dashboard
+
+# Name of the Worksheets that contain server information
 worksheets:
-  - Jedi 2
-  - Jedi 3
-  - Jedi 4
-  - Jedi 5
-  - Jedi 6
-  - Jedi 7
-  - Jedi 8
-  - Jedi 9
-  - Jedi 12
-  - Jedi 13
-  - Vader 1
-  - Vader 2
-  - Vader 3
-  - Vader 4
-  - Vader 5
-  - Vader 6
-  - Vader 7
+#  - Jedi 2
+#  - Jedi 3
+#  - Jedi 4
+#  - Jedi 5
+#  - Jedi 6
+#  - Jedi 7
+#  - Jedi 8
+#  - Jedi 9
+#  - Jedi 12
+#  - Jedi 13
+#  - Vader 1
+#  - Vader 2

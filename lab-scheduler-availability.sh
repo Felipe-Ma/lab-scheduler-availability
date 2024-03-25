@@ -1,3 +1,3 @@
-source /home/intel/Desktop/lab-scheduler-venv/bin/activate
-/home/intel/Desktop/lab-scheduler-venv/bin/python3 /home/intel/Desktop/lab-scheduler/main.py
-deactivate
+# File path to anaconda3 python3.8 and main.py
+# /root/anaconda3/envs/ls_env/bin/python3.8 /root/lab-scheduler-availability/main.py
+
